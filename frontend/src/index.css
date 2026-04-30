@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #050505;
+  color: white;
+}
+
+body {
+  margin: 0;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #FFAEC9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SweetAlert2 Premium Dark Theme Overrides */
+div:where(.swal2-container) div:where(.swal2-popup) {
+  background: #0a0a0a !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 2rem !important;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8) !important;
+}
+
+div:where(.swal2-container) input:where(.swal2-input) {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1rem !important;
+  box-shadow: none !important;
+}
+
+div:where(.swal2-container) input:where(.swal2-input):focus {
+  border-color: #FFAEC9 !important;
+  outline: none !important;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  background-color: #FFAEC9 !important;
+  color: black !important;
+  font-weight: 900 !important;
+  border-radius: 1rem !important;
+  padding: 0.75rem 2rem !important;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  border-radius: 1rem !important;
+  padding: 0.75rem 2rem !important;
+}
