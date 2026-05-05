@@ -1,8 +1,20 @@
+/**
+ * @fileoverview Script de utilidad para añadir equipos colombianos a la base de datos.
+ * Fue creado para poblar la tabla con datos reales para propósitos de prueba y presentación.
+ */
+
 const sequelize = require('./src/config/db');
 const Equipo = require('./src/models/Equipo');
 const Presidente = require('./src/models/Presidente');
 const Jugador = require('./src/models/Jugador');
 
+/**
+ * Función principal para insertar equipos, presidentes y jugadores colombianos.
+ * Utiliza `bulkCreate` con `ignoreDuplicates: true` para evitar errores si se ejecuta múltiples veces.
+ * 
+ * @async
+ * @function addTeams
+ */
 async function addTeams() {
   try {
     await Equipo.bulkCreate([

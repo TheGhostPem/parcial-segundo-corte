@@ -1,7 +1,19 @@
+/**
+ * @fileoverview Script de utilidad para actualizar manualmente el resultado de un partido específico.
+ * Se utilizó para forzar un escenario de prueba (Real Madrid vs Barcelona).
+ */
+
 const sequelize = require('./src/config/db');
 const Partido = require('./src/models/Partido');
 const Gol = require('./src/models/Gol');
 
+/**
+ * Busca un partido por sus códigos de equipo, actualiza los goles y recrea
+ * el historial de los autores de los goles.
+ * 
+ * @async
+ * @function updateMatch
+ */
 async function updateMatch() {
   try {
     const partido = await Partido.findOne({ where: { equipo_local_codigo: 'RM', equipo_visitante_codigo: 'FCB' } });
