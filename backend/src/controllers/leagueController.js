@@ -1,11 +1,26 @@
+/**
+ * @fileoverview Controlador principal para la gestión de la Liga de Fútbol.
+ * Contiene la lógica para obtener estadísticas, información de la liga,
+ * jugadores, partidos, y realizar operaciones CRUD sobre estas entidades.
+ */
+
 const Equipo = require('../models/Equipo');
 const Jugador = require('../models/Jugador');
 const Presidente = require('../models/Presidente');
 const Partido = require('../models/Partido');
 const Gol = require('../models/Gol');
 
-// Estándar de la foto: { success, data, message }
+// Estándar de respuesta: { success, data, message }
 
+/**
+ * Obtiene estadísticas generales de la liga.
+ * 
+ * @async
+ * @function obtenerEstadisticas
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>}
+ */
 exports.obtenerEstadisticas = async (req, res) => {
   try {
     const totalEquipos = await Equipo.count();
@@ -21,6 +36,15 @@ exports.obtenerEstadisticas = async (req, res) => {
   }
 };
 
+/**
+ * Obtiene la información completa de la liga (equipos con sus presidentes y jugadores).
+ * 
+ * @async
+ * @function obtenerInformacionLiga
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>}
+ */
 exports.obtenerInformacionLiga = async (req, res) => {
   try {
     const equipos = await Equipo.findAll({
@@ -40,6 +64,15 @@ exports.obtenerInformacionLiga = async (req, res) => {
   }
 };
 
+/**
+ * Obtiene la lista de todos los jugadores junto con el nombre de su equipo.
+ * 
+ * @async
+ * @function obtenerJugadores
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>}
+ */
 exports.obtenerJugadores = async (req, res) => {
   try {
     const jugadores = await Jugador.findAll({
@@ -58,6 +91,15 @@ exports.obtenerJugadores = async (req, res) => {
   }
 };
 
+/**
+ * Obtiene el historial de partidos, incluyendo equipos, resultados y goles.
+ * 
+ * @async
+ * @function obtenerPartidos
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>}
+ */
 exports.obtenerPartidos = async (req, res) => {
   try {
     const partidos = await Partido.findAll({
@@ -78,6 +120,14 @@ exports.obtenerPartidos = async (req, res) => {
   }
 };
 
+/**
+ * Crea un nuevo equipo en la base de datos.
+ * 
+ * @async
+ * @function crearEquipo
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 exports.crearEquipo = async (req, res) => {
   try {
     const nuevo = await Equipo.create(req.body);
@@ -87,6 +137,14 @@ exports.crearEquipo = async (req, res) => {
   }
 };
 
+/**
+ * Actualiza los datos de un equipo existente.
+ * 
+ * @async
+ * @function editarEquipo
+ * @param {Object} req - Objeto de petición. req.params.codigo contiene el ID.
+ * @param {Object} res - Objeto de respuesta.
+ */
 exports.editarEquipo = async (req, res) => {
   try {
     await Equipo.update(req.body, { where: { codigo: req.params.codigo } });
@@ -96,6 +154,14 @@ exports.editarEquipo = async (req, res) => {
   }
 };
 
+/**
+ * Elimina un equipo de la base de datos.
+ * 
+ * @async
+ * @function eliminarEquipo
+ * @param {Object} req - Objeto de petición. req.params.codigo contiene el ID.
+ * @param {Object} res - Objeto de respuesta.
+ */
 exports.eliminarEquipo = async (req, res) => {
   try {
     await Equipo.destroy({ where: { codigo: req.params.codigo } });
@@ -106,6 +172,14 @@ exports.eliminarEquipo = async (req, res) => {
 };
 
 // ================= CRUD PRESIDENTE =================
+/**
+ * Asigna o crea un nuevo presidente para un equipo.
+ * 
+ * @async
+ * @function crearPresidente
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 exports.crearPresidente = async (req, res) => {
   try {
     const nuevo = await Presidente.create(req.body);
@@ -116,6 +190,14 @@ exports.crearPresidente = async (req, res) => {
 };
 
 // ================= CRUD JUGADOR =================
+/**
+ * Registra o ficha un nuevo jugador en un equipo.
+ * 
+ * @async
+ * @function crearJugador
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 exports.crearJugador = async (req, res) => {
   try {
     const nuevo = await Jugador.create(req.body);
@@ -126,6 +208,14 @@ exports.crearJugador = async (req, res) => {
 };
 
 // ================= CRUD PARTIDO =================
+/**
+ * Programa o registra un nuevo partido entre dos equipos.
+ * 
+ * @async
+ * @function crearPartido
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 exports.crearPartido = async (req, res) => {
   try {
     const nuevo = await Partido.create(req.body);
@@ -136,6 +226,16 @@ exports.crearPartido = async (req, res) => {
 };
 
 // ================= CRUD GOL =================
+/**
+ * Registra un gol anotado en un partido.
+ * Además, actualiza automáticamente el marcador (goles_local o goles_visitante)
+ * del partido correspondiente dependiendo del equipo al que pertenece el jugador.
+ * 
+ * @async
+ * @function crearGol
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 exports.crearGol = async (req, res) => {
   try {
     const nuevo = await Gol.create(req.body);
@@ -158,6 +258,16 @@ exports.crearGol = async (req, res) => {
   }
 };
 
+/**
+ * Función de utilidad para limpiar la base de datos e insertar datos
+ * iniciales (semilla o "seed") para realizar pruebas rápidas.
+ * Advertencia: Elimina todos los registros existentes.
+ * 
+ * @async
+ * @function sembrarBaseDeDatos
+ * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 exports.sembrarBaseDeDatos = async (req, res) => {
   try {
     await Gol.destroy({ where: {} });

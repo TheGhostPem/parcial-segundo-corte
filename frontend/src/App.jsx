@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Componente raíz de la aplicación.
+ * Maneja la sesión del usuario, la navegación principal y el renderizado
+ * condicional de las diferentes vistas de la aplicación.
+ */
 import React, { useState, useEffect } from 'react';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -6,6 +11,13 @@ import PlayersDashboard from './pages/PlayersDashboard';
 import CompetitionDashboard from './pages/CompetitionDashboard';
 import './index.css';
 
+/**
+ * Componente funcional principal App.
+ * Controla qué dashboard se muestra dependiendo del estado de la aplicación.
+ * 
+ * @component
+ * @returns {JSX.Element}
+ */
 function App() {
   // Estados globales: usuario logueado, vista actual y estado de carga
   const [user, setUser] = useState(null);
@@ -23,11 +35,21 @@ function App() {
     setChecking(false);
   }, []);
 
+  /**
+   * Función para manejar el inicio de sesión exitoso.
+   * Guarda los datos del usuario en el estado y en localStorage.
+   * 
+   * @param {Object} userData - Datos del usuario autenticado.
+   */
   const handleLogin = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
   };
 
+  /**
+   * Función para cerrar sesión.
+   * Limpia el estado, localStorage y redirige al login.
+   */
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');

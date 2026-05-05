@@ -1,7 +1,18 @@
+/**
+ * @fileoverview Dashboard de Jugadores.
+ * Permite visualizar y buscar a todos los jugadores de la liga.
+ */
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import { Users, Shield, Search, Database } from 'lucide-react';
 
+/**
+ * Componente funcional para el listado global de jugadores.
+ * Implementa un buscador cliente-side para filtrar jugadores por nombre, posición o equipo.
+ * 
+ * @component
+ * @returns {JSX.Element}
+ */
 const PlayersDashboard = () => {
   const [jugadores, setJugadores] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,6 +22,12 @@ const PlayersDashboard = () => {
     fetchData();
   }, []);
 
+  /**
+   * Carga todos los jugadores registrados desde la API.
+   * Mapea los resultados para asegurar que todos tengan el nombre de equipo o 'Sin equipo'.
+   * 
+   * @async
+   */
   const fetchData = async () => {
     setLoading(true);
     try {

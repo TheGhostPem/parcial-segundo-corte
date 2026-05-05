@@ -1,8 +1,19 @@
+/**
+ * @fileoverview Dashboard de la Liga de Fútbol.
+ * Permite visualizar y gestionar (si se es admin) equipos, presidentes y plantilla.
+ */
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import Swal from 'sweetalert2';
 import { Trophy, Users, Shield, MapPin, Database, Plus, Edit, Trash2, Search } from 'lucide-react';
 
+/**
+ * Componente funcional principal del Dashboard de Equipos (Liga).
+ * Muestra métricas generales y la lista de equipos.
+ * 
+ * @component
+ * @returns {JSX.Element}
+ */
 const LeagueDashboard = () => {
   // --- ESTADOS (Hooks) ---
   const [equipos, setEquipos] = useState([]); // Almacena la lista de equipos
@@ -16,6 +27,12 @@ const LeagueDashboard = () => {
   }, []);
 
   // --- LÓGICA DE DATOS ---
+  /**
+   * Obtiene la información de la liga y las estadísticas desde la API.
+   * Ejecuta ambas peticiones en paralelo para optimizar la carga.
+   * 
+   * @async
+   */
   const fetchData = async () => {
     try {
       // Petición paralela al backend (RF-02 y RF-03)

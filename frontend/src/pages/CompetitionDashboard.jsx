@@ -1,8 +1,20 @@
+/**
+ * @fileoverview Dashboard de Competición (Partidos y Goles).
+ * Permite visualizar el historial de partidos y registrar nuevos eventos.
+ */
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import Swal from 'sweetalert2';
 import { CalendarClock, Shield, Goal, Flag, Plus } from 'lucide-react';
 
+/**
+ * Componente funcional para el tablero de Competición.
+ * Muestra el marcador de los partidos y permite a los administradores
+ * programar nuevos partidos y registrar goles.
+ * 
+ * @component
+ * @returns {JSX.Element}
+ */
 const CompetitionDashboard = () => {
   const [partidos, setPartidos] = useState([]);
   const [equipos, setEquipos] = useState([]);
@@ -16,6 +28,12 @@ const CompetitionDashboard = () => {
     fetchData();
   }, []);
 
+  /**
+   * Carga la información de partidos, equipos y jugadores.
+   * Utiliza peticiones paralelas para mejorar el rendimiento.
+   * 
+   * @async
+   */
   const fetchData = async () => {
     try {
       const [resPartidos, resEquipos, resJugadores] = await Promise.all([

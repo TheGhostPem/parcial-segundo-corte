@@ -1,7 +1,20 @@
+/**
+ * @fileoverview Componente para el registro de nuevos usuarios.
+ * Maneja el formulario y la creación de cuentas mediante la API.
+ */
 import React, { useState } from 'react';
 import api from '../api/api';
 import { UserPlus, ArrowLeft } from 'lucide-react';
 
+/**
+ * Componente funcional de Registro.
+ * Permite crear nuevos usuarios asignándoles un rol específico.
+ * 
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Function} props.onBack - Callback para regresar a la vista de inicio de sesión.
+ * @returns {JSX.Element}
+ */
 const Register = ({ onBack }) => {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
@@ -9,6 +22,12 @@ const Register = ({ onBack }) => {
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
 
+  /**
+   * Manejador del envío del formulario de registro.
+   * 
+   * @async
+   * @param {React.FormEvent} e - Evento de submit del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

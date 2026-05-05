@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Definición de las rutas de la API (Endpoints).
+ * Asocia cada ruta con su controlador correspondiente y aplica
+ * los middlewares necesarios (autenticación y autorización).
+ */
+
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');

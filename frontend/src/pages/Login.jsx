@@ -1,12 +1,32 @@
+/**
+ * @fileoverview Componente para el inicio de sesión de usuarios.
+ * Maneja el formulario de credenciales y la petición de autenticación a la API.
+ */
 import React, { useState } from 'react';
 import api from '../api/api';
 import { ShieldCheck, LogIn } from 'lucide-react';
 
+/**
+ * Componente funcional de Login.
+ * 
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Function} props.onLogin - Callback ejecutado al iniciar sesión correctamente con los datos del usuario.
+ * @param {Function} props.onSwitch - Callback para cambiar a la vista de registro.
+ * @returns {JSX.Element}
+ */
 const Login = ({ onLogin, onSwitch }) => {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  /**
+   * Manejador del envío del formulario de login.
+   * Realiza la petición POST y si es exitosa guarda el token.
+   * 
+   * @async
+   * @param {React.FormEvent} e - Evento de submit del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
