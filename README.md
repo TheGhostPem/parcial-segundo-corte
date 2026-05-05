@@ -259,18 +259,31 @@ cd parcial-segundo-corte
 4. **Verifica** que en el panel izquierdo de Workbench aparezca la base de datos `parcial2_raul` con sus tablas (`equipo`, `jugador`, `presidente`, `partido`, `gol`, `usuarios`).
 
 ### Paso 3 — Configurar el Backend
+
 ```bash
 cd backend
 npm install
 ```
 
-Crea el archivo `.env` en la carpeta `backend/` (ver sección de Variables de Entorno) y luego inicia el servidor:
-```bash
-npm run dev        # Modo desarrollo con Nodemon (recomendado)
-# o
-npm start          # Modo producción
+**Crear el archivo de variables de entorno:**
+1. Dentro de la carpeta `backend/` encontrarás el archivo `.env.example`
+2. **Cópialo y renómbralo a `.env`**
+3. Ábrelo y cambia **solo** la línea `DB_PASS` con tu contraseña de MySQL local:
+
+```env
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=tu_contraseña_de_mysql   ← ⚠️ CAMBIA SOLO ESTA LÍNEA
+DB_NAME=parcial2_raul
+JWT_SECRET=generic_architecture_key_2026
 ```
-> ✅ El servidor se iniciará en `http://localhost:5000`. La base de datos se sincroniza automáticamente al arrancar.
+
+Luego inicia el servidor:
+```bash
+npm run dev
+```
+> ✅ El servidor arranca en `http://localhost:5000`, sincroniza la BD y crea el usuario **admin / 123456** automáticamente.
 
 ### Paso 4 — Configurar el Frontend
 ```bash
@@ -279,13 +292,14 @@ cd frontend
 npm install
 npm run dev
 ```
-> ✅ La aplicación estará disponible en `http://localhost:5173`.
+> ✅ La aplicación estará disponible en `http://localhost:5173`. Entra con **admin / 123456** y verás todos los datos cargados.
 
 ---
 
 ## ⚙️ Variables de Entorno
 
-Crea un archivo `.env` dentro de la carpeta `backend/` con las siguientes variables:
+El archivo `backend/.env.example` ya viene incluido en el repositorio como plantilla.
+Solo cópialo, renómbralo a `.env` y cambia `DB_PASS` con tu contraseña de MySQL local:
 
 ```env
 # Puerto del servidor Express
@@ -294,7 +308,7 @@ PORT=5000
 # Configuración de la Base de Datos MySQL
 DB_HOST=localhost
 DB_USER=root
-DB_PASS=tu_contraseña_mysql
+DB_PASS=tu_contraseña_mysql   ← Solo cambia esto
 DB_NAME=parcial2_raul
 
 # Clave secreta para firmar los tokens JWT
