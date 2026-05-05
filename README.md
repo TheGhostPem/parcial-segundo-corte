@@ -229,7 +229,7 @@ usuarios [entidad independiente de gestión de acceso]
 
 ### Prerrequisitos
 - **Node.js** v18 o superior
-- **MySQL** (Workbench, XAMPP u otro cliente compatible)
+- **MySQL Workbench** instalado y corriendo
 - **Git**
 
 ### Paso 1 — Clonar el repositorio
@@ -238,16 +238,25 @@ git clone https://github.com/TheGhostPem/parcial-segundo-corte.git
 cd parcial-segundo-corte
 ```
 
-### Paso 2 — Configurar la Base de Datos
-1. Abre MySQL y ejecuta el script de creación de tablas:
-   ```sql
-   -- Ejecutar en MySQL Workbench o cliente equivalente
-   source database/schema.sql
-   ```
-2. (Opcional) Cargar datos de prueba:
-   ```sql
-   source database/seeds.sql
-   ```
+### Paso 2 — Configurar la Base de Datos en MySQL Workbench
+
+> ⚠️ Este paso es **obligatorio**. Sin él la app no tendrá datos.
+
+1. **Abre MySQL Workbench** y conéctate a tu servidor local (`localhost`).
+
+2. **Crea la base de datos y las tablas:**
+   - En el menú superior ve a **File → Open SQL Script**
+   - Navega hasta la carpeta del proyecto y abre el archivo: `database/schema.sql`
+   - Haz clic en el **rayo (⚡ Execute)** para ejecutarlo
+   - Esto crea la base de datos `parcial2_raul` con todas sus tablas
+
+3. **Carga los datos de prueba (equipos, jugadores, partidos, etc.):**
+   - Ve de nuevo a **File → Open SQL Script**
+   - Abre el archivo: `database/seeds.sql`
+   - Haz clic en el **rayo (⚡ Execute)** para ejecutarlo
+   - Esto inserta todos los datos iniciales en la base de datos
+
+4. **Verifica** que en el panel izquierdo de Workbench aparezca la base de datos `parcial2_raul` con sus tablas (`equipo`, `jugador`, `presidente`, `partido`, `gol`, `usuarios`).
 
 ### Paso 3 — Configurar el Backend
 ```bash
